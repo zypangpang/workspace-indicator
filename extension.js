@@ -25,7 +25,7 @@ class WorkspaceIndicator extends PanelMenu.Button {
         this._currentWorkspace = workspaceManager.get_active_workspace().index();
         this.statusLabel = new St.Label({
             y_align: Clutter.ActorAlign.CENTER,
-            text: this._labelText()
+            text: this._labelText()+' >'
         });
 
 		
@@ -84,16 +84,15 @@ class WorkspaceIndicator extends PanelMenu.Button {
         this._currentWorkspace = global.workspace_manager.get_active_workspace().index();
         this.workspacesItems[this._currentWorkspace].setOrnament(PopupMenu.Ornament.DOT);
 
-        this.statusLabel.set_text(this._labelText());
+        this.statusLabel.set_text(this._labelText()+' >');
     }
 
     _labelText(workspaceIndex) {
-        workspaceIndex = this._currentWorkspace;
-        /*if (workspaceIndex == undefined) {
+        if (workspaceIndex == undefined) {
             workspaceIndex = this._currentWorkspace;
             return (workspaceIndex + 1).toString();
-        }*/
-        return Meta.prefs_get_workspace_name(workspaceIndex)+' >';
+        }
+        return Meta.prefs_get_workspace_name(workspaceIndex);
     }
 
     _createWorkspacesSection() {
@@ -117,7 +116,7 @@ class WorkspaceIndicator extends PanelMenu.Button {
                 this.workspacesItems[i].setOrnament(PopupMenu.Ornament.DOT);
         }
 
-        this.statusLabel.set_text(this._labelText());
+        this.statusLabel.set_text(this._labelText()+' >');
     }
 
     _activate(index) {
